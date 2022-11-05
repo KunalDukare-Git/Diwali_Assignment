@@ -14,7 +14,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const initial = {
-    _id: user._id,
     first_name: user.first_name,
     last_name: user.last_name,
     add_line1: user.address?.add_line1,
