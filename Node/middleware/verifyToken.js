@@ -19,6 +19,6 @@ export const verifyToken = async (req, res, next) => {
       return res.status(401).send("Invalid Token");
     }
   } catch (error) {
-    throw error
+    throw error;
   }
 };

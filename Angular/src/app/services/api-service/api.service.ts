@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +9,10 @@ export class ApiService {
 
   token: any = localStorage.getItem('token');
 
-  headerConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: this.token,
-    },
+  setHeaders = {
+    headers: new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('Authorization', this.token),
   };
 
   constructor(private httpClient: HttpClient) {}
@@ -45,7 +44,7 @@ export class ApiService {
   /*---------------------User Update-----------------*/
   async updateUser(data: any) {
     const res: any = await this.httpClient
-      .post(`${this.apiURL}/user/updateUser`, data, this.headerConfig)
+      .post(`${this.apiURL}/user/updateUser`, data, this.setHeaders)
       .toPromise();
 
     if (res.status) {
