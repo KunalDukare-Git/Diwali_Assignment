@@ -1,0 +1,226 @@
+<div class="container register">
+  <div class="row">
+    <div class="col-md-3 register-left">
+      <h3>Welcome</h3>
+      <br /><br /><br />
+    </div>
+    <div class="col-md-9 register-right">
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="home-tab"
+            data-toggle="tab"
+            href="#home"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+            >Registration</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="profile-tab"
+            data-toggle="tab"
+            href="#profile"
+            first
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+            >Login</a
+          >
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="home"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <form [formGroup]="registerForm">
+            <div class="row register-form">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="first_name"
+                    placeholder="First Name"
+                    formControlName="first_name"
+                    class="form-control"
+                  />
+                  <div
+                    class="error"
+                    *ngIf="form.first_name.errors && form.first_name.touched"
+                  >
+                    <div *ngIf="form.first_name.errors.required">
+                      First name is required *
+                    </div>
+                    <div *ngIf="form.first_name.errors.pattern">
+                      Only alphabets allowed!!!
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="add_line1"
+                    placeholder="Address Line 1"
+                    formControlName="add_line1"
+                    class="form-control"
+                  />
+                  <span
+                    class="error"
+                    *ngIf="form.add_line1.invalid && form.add_line1.touched"
+                    >Address Line1 is required *</span
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="state"
+                    placeholder="State"
+                    formControlName="state"
+                    class="form-control"
+                  />
+                  <span
+                    class="error"
+                    *ngIf="form.state.invalid && form.state.touched"
+                    >State is required *</span
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    type="number"
+                    name="mobile"
+                    placeholder="Mobile No."
+                    formControlName="mobile"
+                    class="form-control"
+                  />
+                  <div
+                    *ngIf="form.mobile.touched && form.mobile.errors"
+                    class="error"
+                  >
+                    <div *ngIf="form.mobile.errors.required">
+                      Mobile Number is required *
+                    </div>
+                    <div *ngIf="form.mobile.errors.pattern">
+                      Please, Enter 10 digit Mobile Number.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password *"
+                    formControlName="password"
+                    class="form-control"
+                  />
+                  <div
+                    class="error"
+                    *ngIf="form.password.errors && form.password.touched"
+                  >
+                    <div *ngIf="form.password.errors.required">
+                      Password is required *
+                    </div>
+                    <div *ngIf="form.password.errors.minlength">
+                      Password should be of minimum 8 length!!
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="last_name"
+                    placeholder="Last Name"
+                    formControlName="last_name"
+                    class="form-control"
+                  />
+                  <div
+                    class="error"
+                    *ngIf="form.last_name.errors && form.last_name.touched"
+                  >
+                    <div *ngIf="form.last_name.errors.required">
+                      First name is required *
+                    </div>
+                    <div *ngIf="form.last_name.errors.pattern">
+                      Only alphabets allowed!!!
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="add_line2"
+                    class="form-control"
+                    placeholder="Address Line 2 (optional)"
+                    formControlName="add_line2"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    formControlName="city"
+                    class="form-control"
+                  />
+                  <span
+                    class="error"
+                    *ngIf="form.city.invalid && form.city.touched"
+                    >City is required *</span
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    formControlName="email"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': form.email.touched && form.email.errors
+                    }"
+                  />
+
+                  <div
+                    class="error"
+                    *ngIf="form.email.errors && form.email.touched"
+                  >
+                    <div *ngIf="form.email.errors.required">
+                      Email is required *
+                    </div>
+                    <div *ngIf="form.email.errors.pattern">
+                      Enter a valid email!!!
+                    </div>
+                  </div>
+                </div>
+
+                <br />
+              </div>
+            </div>
+          </form>
+          <div class="text-right">
+            <button
+              [disabled]="registerForm.invalid"
+              class="btnRegister"
+              (click)="handleSubmit()"
+            >
+              Submit
+            </button>
+            <button class="btnReset" (click)="handleReset()">Reset</button
+            >&nbsp;&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-right">
+      <b>Already registered?<a routerLink="/login"> Login here</a></b>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.error {
+  color: red;
+}
+input.ng-invalid {
+  border-left: 5px solid red;
+}
+
+input.ng-valid {
+  border-left: 5px solid rgb(37, 241, 18);
+}
