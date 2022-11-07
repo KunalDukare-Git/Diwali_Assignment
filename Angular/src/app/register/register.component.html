@@ -78,13 +78,29 @@
                   >
                 </div>
                 <div class="form-group">
-                  <input
+                  <!-- <input
                     type="text"
                     name="state"
                     placeholder="State"
                     formControlName="state"
                     class="form-control"
                   />
+                  <span
+                    class="error"
+                    *ngIf="form.state.invalid && form.state.touched"
+                    >State is required *</span
+                  > -->
+                  <select
+                    class="custom-select mb-3"
+                    (change)="changeState($event)"
+                    formControlName="state"
+                    class="form-control"
+                  >
+                    <option value="">Select state</option>
+                    <option *ngFor="let state of states" [ngValue]="state">
+                      {{ state }}
+                    </option>
+                  </select>
                   <span
                     class="error"
                     *ngIf="form.state.invalid && form.state.touched"
@@ -127,7 +143,7 @@
                       Password is required *
                     </div>
                     <div *ngIf="form.password.errors.minlength">
-                      Password should be of minimum 8 length!!
+                      Password should be of minimum 8 character!!
                     </div>
                   </div>
                 </div>
@@ -163,13 +179,17 @@
                   />
                 </div>
                 <div class="form-group">
-                  <input
-                    type="text"
-                    name="city"
-                    placeholder="City"
-                    formControlName="city"
-                    class="form-control"
-                  />
+                  <select
+                  class="custom-select mb-3"
+                  (change)="changeCity($event)"
+                  formControlName="city"
+                  class="form-control"
+                >
+                  <option value="">Select City</option>
+                  <option *ngFor="let city of cities" [ngValue]="city">
+                    {{ city }}
+                  </option>
+                </select>
                   <span
                     class="error"
                     *ngIf="form.city.invalid && form.city.touched"
@@ -225,9 +245,7 @@
                   </div>
                   <div
                     class="text-success"
-                    *ngIf="
-                      !form.confirmPassword.errors
-                    "
+                    *ngIf="!form.confirmPassword.errors"
                   >
                     Password Matched
                   </div>

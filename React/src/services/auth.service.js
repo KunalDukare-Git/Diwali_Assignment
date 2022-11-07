@@ -20,7 +20,7 @@ export const userSignup = async (data) => {
       axiosConfig
     );
 
-    if (response.status === 200) {
+    if (response.data.status) {
       setDataAfterUserLogin(response);
     }
     return response;

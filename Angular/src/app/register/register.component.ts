@@ -11,6 +11,16 @@ import { MustMatch } from '../services/form-validations/mustmatch';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  states:any=['Maharashtra',"bihar","Uttar Pradesh","Lucknow"]
+  cities:any = [
+    "Mumbai",
+    "Pune",
+    "Nagpur",
+    " Wardha",
+    "Mandgaon",
+    "Ramtek",
+    " Amravati",
+  ];
   registerForm: any = FormGroup;
   submitted = false;
   confirmedPassword: any;
@@ -64,14 +74,18 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
-  // pwdMatchValidator() {
-  //   return this.registerForm.get('password').value ===
-  //     this.registerForm.get('confirmedPassword').value
-  //     ? null
-  //     : { mismatch: true };
-  // }
+  changeState(e: any) {
+    console.log("Stae",e.target.value)
+    this.registerForm.state = e.target.value
+  }
+
+  changeCity(e: any) {
+    console.log("City",e.target.value)
+    this.registerForm.city = e.target.value
+  }
 
   handleSubmit() {
+    console.log("SubmitData",this.registerForm.value)
     this.service.userSignup(this.registerForm.value).then((res: any) => {
       if (res.status === true) {
         this.toastr.success(res.message, 'Success');

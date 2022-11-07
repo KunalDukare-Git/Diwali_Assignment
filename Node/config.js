@@ -3,15 +3,15 @@ const config = {
 
   staging: {
     Database: {
-      host: "172.10.1.3",
+      host: "localhost",
       port: "27017",
-      dbName: "kunaldukare",
+      dbName: "Diwali",
       mongoose: {
         useUnifiedTopology: true,
         useNewUrlParser: true,
       },
-      userName: "kunaldukare",
-      password: "kunaldukare675",
+      userName: "",
+      password: "",
     },
     email:{
       username:"kunaldukare777@gmail.com",

@@ -45,7 +45,7 @@ const Register = () => {
       validationSchema: SignupValidations,
       onSubmit: async (values) => {
         const res = await userSignup(values);
-        if (res.status === 200) {
+        if (res.data.status) {
           toast.success(res.data.message);
           navigate("/dashboard");
         } else {
@@ -213,6 +213,9 @@ const Register = () => {
                       />
                       {errors.confirmPassword && touched.confirmPassword ? (
                         <p className="text-danger">{errors.confirmPassword}</p>
+                      ) : null}
+                      {!errors.confirmPassword && touched.confirmPassword? (
+                        <p className="text-success">Password Matched</p>
                       ) : null}
                     </div>
                   </div>
