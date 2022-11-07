@@ -146,7 +146,7 @@
                     *ngIf="form.last_name.errors && form.last_name.touched"
                   >
                     <div *ngIf="form.last_name.errors.required">
-                      First name is required *
+                      Last name is required *
                     </div>
                     <div *ngIf="form.last_name.errors.pattern">
                       Only alphabets allowed!!!
@@ -198,6 +198,38 @@
                     <div *ngIf="form.email.errors.pattern">
                       Enter a valid email!!!
                     </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password *"
+                    formControlName="confirmPassword"
+                    class="form-control"
+                  />
+                  <div
+                    class="error"
+                    *ngIf="
+                      form.confirmPassword.errors &&
+                      form.confirmPassword.touched
+                    "
+                  >
+                    <div *ngIf="form.confirmPassword.errors.required">
+                      Please confirm password
+                    </div>
+                    <div *ngIf="form.confirmPassword.errors?.mustMatch">
+                      Passwords must match
+                    </div>
+                  </div>
+                  <div
+                    class="text-success"
+                    *ngIf="
+                      !form.confirmPassword.errors
+                    "
+                  >
+                    Password Matched
                   </div>
                 </div>
 
