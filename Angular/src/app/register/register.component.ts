@@ -11,25 +11,26 @@ import { MustMatch } from '../services/form-validations/mustmatch';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  states:any=['Maharashtra',"bihar","Uttar Pradesh","Lucknow"]
-  cities:any = [
-    "Mumbai",
-    "Pune",
-    "Nagpur",
-    " Wardha",
-    "Mandgaon",
-    "Ramtek",
-    " Amravati",
+  states: any = ['Maharashtra', 'bihar', 'Uttar Pradesh', 'Lucknow'];
+  cities: any = [
+    'Mumbai',
+    'Pune',
+    'Nagpur',
+    ' Wardha',
+    'Mandgaon',
+    'Ramtek',
+    ' Amravati',
   ];
   registerForm: any = FormGroup;
   submitted = false;
   confirmedPassword: any;
+  image:any;
 
   constructor(
     private formBuilder: FormBuilder,
     private service: ApiService,
     private router: Router,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -65,8 +66,8 @@ export class RegisterComponent implements OnInit {
         confirmPassword: ['', [Validators.required]],
       },
       {
-        validator: MustMatch('password', 'confirmPassword')
-    }
+        validator: MustMatch('password', 'confirmPassword'),
+      }
     );
   }
 
@@ -75,18 +76,24 @@ export class RegisterComponent implements OnInit {
   }
 
   changeState(e: any) {
-    console.log("Stae",e.target.value)
-    this.registerForm.state = e.target.value
+    console.log('Stae', e.target.value);
+    this.registerForm.state = e.target.value;
   }
 
   changeCity(e: any) {
-    console.log("City",e.target.value)
-    this.registerForm.city = e.target.value
+    console.log('City', e.target.value);
+    this.registerForm.city = e.target.value;
+  }
+
+  onImageChange(event: any) {
+    console.log(event);
+    console.log(event.target.files[0]);
+    this.image = event.target.files[0];
   }
 
   handleSubmit() {
-    console.log("SubmitData",this.registerForm.value)
-    this.service.userSignup(this.registerForm.value).then((res: any) => {
+    console.log('SubmitData', this.registerForm.value);
+    this.service.userSignup(this.registerForm.value,this.image).then((res: any) => {
       if (res.status === true) {
         this.toastr.success(res.message, 'Success');
         this.router.navigate(['/dashboard']);

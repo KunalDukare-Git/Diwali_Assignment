@@ -16,6 +16,7 @@ export const userSignup = async (req, res) => {
       mobile,
       email,
     } = req.body;
+
     const addUser = new user({
       first_name,
       last_name,
@@ -26,11 +27,17 @@ export const userSignup = async (req, res) => {
         state,
       },
       mobile,
+      image: req.file.filename,
       email,
       password: bcrypt.hashSync(req.body.password, 8),
+
     });
 
     const result = await addUser.save();
+
+
+    result.image = `http://localhost:8080/uploads/${result.image}`;
+
     if (result) {
       let payload = {};
       payload._id = result._id;
@@ -62,6 +69,7 @@ export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const result = await user.findOne({ email });
+    result.image = `http://localhost:8080/uploads/${result.image}`;
     if (!result) {
       res.send({
         status: false,
@@ -123,6 +131,7 @@ export const updateUser = async (req, res) => {
       { new: true }
     );
 
+    result.image = `http://localhost:8080/uploads/${result.image}`;
     if (!result) {
       res.send({
         status: false,

@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     addres: { add_line1: '', add_line2: '', city: '', state: '' },
     email: '',
     mobile: 0,
+    image:''
   };
 
   constructor(
@@ -39,7 +40,6 @@ export class DashboardComponent implements OnInit {
     this.displayStyle = 'none';
   }
   handleUpdate(data: any) {
-   
     this.service.updateUser(data).then((res: any) => {
       if (res.status) {
         this.toastr.success(res.message, 'Success');

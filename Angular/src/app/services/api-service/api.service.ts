@@ -18,9 +18,23 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
   /*--------------------User Signup---------------*/
-  async userSignup(data: any): Promise<any> {
+  async userSignup(data: any, image: any): Promise<any> {
+    console.log(image);
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('first_name', data.first_name);
+    formData.append('last_name', data.last_name);
+    formData.append('add_line1', data.add_line1);
+    formData.append('add_line2', data.add_line2);
+    formData.append('state', data.state);
+    formData.append('city', data.city);
+    formData.append('mobile', data.mobile);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+
+    console.log('FormData', formData);
     const res: any = await this.httpClient
-      .post(`${this.apiURL}/user/userSignup`, data)
+      .post(`${this.apiURL}/user/userSignup`, formData)
       .toPromise();
 
     if (res.status) {
