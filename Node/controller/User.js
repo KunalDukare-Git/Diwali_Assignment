@@ -17,6 +17,8 @@ export const userSignup = async (req, res) => {
       email,
     } = req.body;
 
+    console.log(first_name)
+
     const addUser = new user({
       first_name,
       last_name,
@@ -34,7 +36,6 @@ export const userSignup = async (req, res) => {
     });
 
     const result = await addUser.save();
-
 
     result.image = `http://localhost:8080/uploads/${result.image}`;
 

@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   registerForm: any = FormGroup;
   submitted = false;
   confirmedPassword: any;
-  image:any;
+  // image:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,6 +64,7 @@ export class RegisterComponent implements OnInit {
         ],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
+        image: ['', [Validators.required]],
       },
       {
         validator: MustMatch('password', 'confirmPassword'),
@@ -86,14 +87,26 @@ export class RegisterComponent implements OnInit {
   }
 
   onImageChange(event: any) {
-    console.log(event);
-    console.log(event.target.files[0]);
-    this.image = event.target.files[0];
+    const file = event.target.files[0];
+    this.registerForm.patchValue({
+      image: file,
+    });
   }
 
   handleSubmit() {
-    console.log('SubmitData', this.registerForm.value);
-    this.service.userSignup(this.registerForm.value,this.image).then((res: any) => {
+    const formData = new FormData();
+    formData.append('image', this.registerForm.get('image').value);
+    formData.append('first_name', this.registerForm.get('first_name').value);
+    formData.append('last_name', this.registerForm.get('last_name').value);
+    formData.append('add_line1', this.registerForm.get('add_line1').value);
+    formData.append('add_line2', this.registerForm.get('add_line2').value);
+    formData.append('state', this.registerForm.get('state').value);
+    formData.append('city', this.registerForm.get('city').value);
+    formData.append('mobile', this.registerForm.get('mobile').value);
+    formData.append('email', this.registerForm.get('email').value);
+    formData.append('password', this.registerForm.get('password').value);
+
+    this.service.userSignup(formData).then((res: any) => {
       if (res.status === true) {
         this.toastr.success(res.message, 'Success');
         this.router.navigate(['/dashboard']);
