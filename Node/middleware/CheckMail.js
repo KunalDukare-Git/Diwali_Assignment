@@ -2,6 +2,7 @@ import user from "../model/User";
 
 export const CheckMail = async (req, res, next) => {
   try {
+
     const result = await user.findOne({ email: req.body.email });
 
     if (!result) {

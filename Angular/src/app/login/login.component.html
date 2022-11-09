@@ -10,7 +10,7 @@
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
-          <!-- Email input -->
+          <!------------------------- Email input ------------------------>
           <div class="form-outline mb-4">
             <label class="form-label" for="form1Example13">Email address</label>
             <input
@@ -32,14 +32,14 @@
             </div>
           </div>
 
-          <!-- Password input -->
+          <!------------------------- Password input ------------------------------------->
           <div class="form-outline mb-4">
             <label class="form-label" for="form1Example23">Password</label>
 
             <input
               required
               #password="ngModel"
-              [(ngModel)]="user.password"
+              ngModel
               type="password"
               name="password"
               class="form-control form-control-lg"
@@ -50,13 +50,10 @@
               >Password is required *</span
             >
           </div>
-
-          <div class="d-flex justify-content-around align-items-center mb-4">
-            <!-- Checkbox -->
-            <div class="form-check"></div>
-            Do not have account?
-            <a routerLink="/register">Signup Here</a>
-          </div>
+          Do not have account?
+          <a routerLink="/register">Signup Here</a
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="text-info" (click)="openPopup()">Forgot Password?</a>
 
           <!-- Submit button -->
           <button
@@ -92,3 +89,63 @@
     </div>
   </div>
 </section>
+
+<!------------------Popup For Forget Password------------------->
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          id="cross"
+          class="btn btn-warning"
+          (click)="closePopup()"
+          data-dismiss="modal"
+        >
+          <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form #popup="ngForm">
+            <input
+              type="email"
+              name="email"
+              ngModel
+              #sent="ngModel"
+              required
+              placeholder="Enter Email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              class="form-control form-control-lg"
+            />
+            <div *ngIf="sent.touched">
+              <p class="error" *ngIf="sent.errors?.['required']">
+                Email is required *
+              </p>
+              <p class="error" *ngIf="sent.errors?.['pattern']">
+                Enter a valid email!!!
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          [disabled]="popup.invalid"
+          type="button"
+          class="btn btn-success"
+          (click)="handlePopupSubmit(popup.value)"
+        >
+          Send Otp
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

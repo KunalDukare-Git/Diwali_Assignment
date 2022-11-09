@@ -24,7 +24,6 @@ export class RegisterComponent implements OnInit {
   registerForm: any = FormGroup;
   submitted = false;
   confirmedPassword: any;
-  // image:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -77,17 +76,16 @@ export class RegisterComponent implements OnInit {
   }
 
   changeState(e: any) {
-    console.log('Stae', e.target.value);
     this.registerForm.state = e.target.value;
   }
 
   changeCity(e: any) {
-    console.log('City', e.target.value);
     this.registerForm.city = e.target.value;
   }
 
   onImageChange(event: any) {
-    const file = event.target.files[0];
+    console.log(event.target.files[0])
+    const file = event.target.files[0]
     this.registerForm.patchValue({
       image: file,
     });

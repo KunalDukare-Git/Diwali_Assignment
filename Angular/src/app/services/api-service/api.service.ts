@@ -19,7 +19,6 @@ export class ApiService {
 
   /*--------------------User Signup---------------*/
   async userSignup(formData: any): Promise<any> {
-    console.log('FormData', formData);
     const res: any = await this.httpClient
       .post(`${this.apiURL}/user/userSignup`, formData)
       .toPromise();
@@ -52,6 +51,12 @@ export class ApiService {
       localStorage.setItem('user', JSON.stringify(res.result));
     }
     return res;
+  }
+
+  /*---------------Forget Password------------------*/
+  forgetPassword(email: any) {
+    console.log(email)
+    return this.httpClient.post(`${this.apiURL}/user/forgetPassword`,email);
   }
 
   /*----------------set data after user login----------------*/

@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   image: {
-    type: String
+    type: String,
   }
 });
 const user = mongoose.model("user", userSchema);

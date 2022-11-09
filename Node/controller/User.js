@@ -2,6 +2,7 @@ import user from "../model/User";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { SendEmail } from "../middleware/SendEmail";
 
 /*-----------------User Signup----------------------*/
 export const userSignup = async (req, res) => {
@@ -16,8 +17,6 @@ export const userSignup = async (req, res) => {
       mobile,
       email,
     } = req.body;
-
-    console.log(first_name)
 
     const addUser = new user({
       first_name,
@@ -70,7 +69,7 @@ export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const result = await user.findOne({ email });
-    result.image = `http://localhost:8080/uploads/${result.image}`;
+
     if (!result) {
       res.send({
         status: false,
@@ -78,6 +77,7 @@ export const userLogin = async (req, res) => {
       });
     } else {
       const isValid = bcrypt.compareSync(password, result.password);
+      result.image = `http://localhost:8080/uploads/${result.image}`;
 
       if (isValid) {
         let payload = {};
@@ -118,12 +118,7 @@ export const updateUser = async (req, res) => {
       first_name,
       last_name,
       mobile,
-      address: {
-        add_line1,
-        add_line2,
-        city,
-        state,
-      },
+      address: { add_line1, add_line2, city, state },
     };
 
     const result = await user.findByIdAndUpdate(
@@ -152,3 +147,40 @@ export const updateUser = async (req, res) => {
     throw e;
   }
 };
+
+
+/*--------------Forget password-------------*/
+export const forgetPassword = async (req, res) => {
+  try {
+    console.log(req.user)
+    if (req.user) {
+      let payload = {};
+      payload._id = req.user._id;
+
+      jwt.sign(
+        payload,
+        "SECRET_KEY",
+        {
+          expiresIn: "24h",
+        },
+        (err, token) => {
+          res.send({
+            status: true,
+            statusCode: 200,
+            message: " Reset password link has been sent to your mail.",
+          });
+          SendEmail(
+            "kunaldukare777@gmail.com",
+            req.user.email,
+            'Reset password link',
+            `Reset your password by <a href="${process.env.CLIENT_URL}/reset-password/${token}"> clicking here </a>`
+          )
+        }
+      );
+    }
+
+  } catch (err) {
+    throw err;
+  }
+
+}

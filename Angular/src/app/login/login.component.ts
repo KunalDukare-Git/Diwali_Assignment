@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  user = { email: '', password: '' };
+  displayStyle = 'none';
 
   constructor(
     private service: ApiService,
@@ -19,6 +19,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  openPopup() {
+    this.displayStyle = 'block';
+  }
+
+  closePopup() {
+    this.displayStyle = 'none';
+  }
+
   onSubmit(data: any) {
     this.service.userLogin(data).then((res) => {
       if (res.status) {
@@ -26,6 +34,18 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       } else {
         this.toastr.error(res.message, 'Error!');
+      }
+    });
+  }
+
+  handlePopupSubmit(email: any) {
+    console.log(email);
+    this.service.forgetPassword(email).subscribe((res: any) => {
+      if (res.status) {
+        this.toastr.success(res.message, 'Success');
+        this.closePopup();
+      } else {
+        this.toastr.error(res.message, 'Error');
       }
     });
   }
