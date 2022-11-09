@@ -2,8 +2,6 @@ var nodemailer = require("nodemailer");
 const config = require("../config");
 const email = config.get(process.env.ENVIRONMENT).email;
 
-console.log(email);
-
 export const SendEmail = (from, to, subject, html) => {
   var transporter = nodemailer.createTransport({
     service: "gmail",

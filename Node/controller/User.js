@@ -152,7 +152,6 @@ export const updateUser = async (req, res) => {
 /*--------------Forget password-------------*/
 export const forgetPassword = async (req, res) => {
   try {
-    console.log(req.user)
     if (req.user) {
       let payload = {};
       payload._id = req.user._id;
@@ -170,7 +169,7 @@ export const forgetPassword = async (req, res) => {
             message: " Reset password link has been sent to your mail.",
           });
           SendEmail(
-            "kunaldukare777@gmail.com",
+            "selfempire07@gmail.com",
             req.user.email,
             'Reset password link',
             `Reset your password by <a href="${process.env.CLIENT_URL}/reset-password/${token}"> clicking here </a>`
