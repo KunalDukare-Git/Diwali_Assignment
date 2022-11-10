@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../services/api-service/api.service';
+import { ApiService } from 'src/app/services/api-service/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
       console.log('Password Rest', res);
       if (res.status) {
         this.toastr.success(res.message);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/user/login']);
         localStorage.clear();
       }
     });

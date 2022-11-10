@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api-service/api.service';
+import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { MustMatch } from '../services/form-validations/mustmatch';
+import { MustMatch } from 'src/app/services/form-validations/mustmatch';
 
 @Component({
   selector: 'app-register',
@@ -107,7 +107,7 @@ export class RegisterComponent implements OnInit {
     this.service.userSignup(formData).then((res: any) => {
       if (res.status === true) {
         this.toastr.success(res.message, 'Success');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/user/dashboard']);
       } else {
         this.toastr.error(res.message, 'Error');
       }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api-service/api.service';
+import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -53,6 +53,6 @@ export class DashboardComponent implements OnInit {
   handleLogout() {
     localStorage.clear();
     this.toastr.success('Logout Successfull', 'Success');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/user/login']);
   }
 }

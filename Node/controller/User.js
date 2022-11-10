@@ -78,7 +78,7 @@ export const userLogin = async (req, res) => {
       });
     } else {
       const isValid = bcrypt.compareSync(password, result.password);
-      result.image = `http://localhost:8080/uploads/${result.image}`;
+      result.image = `http://localhost:2020/uploads/${result.image}`;
 
       if (isValid) {
         let payload = {};
@@ -128,7 +128,7 @@ export const updateUser = async (req, res) => {
       { new: true }
     );
 
-    result.image = `http://localhost:8080/uploads/${result.image}`;
+    result.image = `http://localhost:2020/uploads/${result.image}`;
     if (!result) {
       res.send({
         status: false,
@@ -194,7 +194,7 @@ export const resetPassword = async (req, res) => {
   try {
     const _id = req.verifiedToken._id;
     console.log(_id, req.body.password)
-    await user.updateOne(
+    await user.findByIdAndUpdate(
       { _id: mongoose.Types.ObjectId(_id) },
       { $set: { password: bcrypt.hashSync(req.body.password, 8) } },
       function (err, response) {

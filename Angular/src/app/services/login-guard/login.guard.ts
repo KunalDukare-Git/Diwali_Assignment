@@ -25,7 +25,7 @@ export class LoginGuard implements CanActivate {
       localStorage.getItem('isLoggedIn') === 'true' ? true : false;
 
     if (!isLogin) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/user/login']);
     }
     return isLogin;
   }
