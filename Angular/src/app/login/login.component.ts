@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   }
 
   handlePopupSubmit(email: any) {
-    console.log(email);
     this.service.forgetPassword(email).subscribe((res: any) => {
       if (res.status) {
         this.toastr.success(res.message, 'Success');

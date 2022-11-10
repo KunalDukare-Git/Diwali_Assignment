@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
-  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
@@ -24,4 +24,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  constructor() {
+    console.log('all routing loded');
+  }
+}

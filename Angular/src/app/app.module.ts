@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RegisterComponent,
     DashboardComponent,
     HomeComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

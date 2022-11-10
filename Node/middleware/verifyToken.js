@@ -5,6 +5,8 @@ export const verifyToken = async (req, res, next) => {
     const token = req.header("Authorization");
     let jwtSecretKey = "SECRET_KEY";
 
+    console.log("Token",token)
+
     if (!token) {
       return res.send({
         status: false,

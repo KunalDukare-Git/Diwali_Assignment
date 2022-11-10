@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private apiURL = 'http://localhost:8080';
+  private apiURL = 'http://localhost:2020';
 
   token: any = localStorage.getItem('token');
 
@@ -53,10 +53,15 @@ export class ApiService {
     return res;
   }
 
-  /*---------------Forget Password------------------*/
+  /*-----------------------Forget Password-------------------*/
   forgetPassword(email: any) {
-    console.log(email)
-    return this.httpClient.post(`${this.apiURL}/user/forgetPassword`,email);
+    return this.httpClient.post(`${this.apiURL}/user/forgetPassword`, email);
+  }
+
+  /*-----------------------Reset Password--------------------*/
+  resetPassword(data: any) {
+    console.log(data);
+    return this.httpClient.post(`${this.apiURL}/user/resetPassword`, data,this.setHeaders);
   }
 
   /*----------------set data after user login----------------*/

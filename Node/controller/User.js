@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { SendEmail } from "../middleware/SendEmail";
+import { sendEmail } from "../middleware/MailGun";
 
 /*-----------------User Signup----------------------*/
 export const userSignup = async (req, res) => {
@@ -174,6 +175,12 @@ export const forgetPassword = async (req, res) => {
             'Reset password link',
             `Reset your password by <a href="${process.env.CLIENT_URL}/reset-password/${token}"> clicking here </a>`
           )
+          sendEmail(
+            "selfempire07@gmail.com",
+             req.user.email,
+            'Reset password link',
+            "hello from mail gun"
+          )
         }
       );
     }
@@ -181,5 +188,24 @@ export const forgetPassword = async (req, res) => {
   } catch (err) {
     throw err;
   }
-
 }
+
+export const resetPassword = async (req, res) => {
+  try {
+    const _id = req.verifiedToken._id;
+    console.log(_id, req.body.password)
+    await user.updateOne(
+      { _id: mongoose.Types.ObjectId(_id) },
+      { $set: { password: bcrypt.hashSync(req.body.password, 8) } },
+      function (err, response) {
+        res.send({
+          status: true,
+          message: "Password Changed successfully"
+          , result: response
+        })
+      });
+  } catch (error) {
+    throw error;
+  }
+}
+
